@@ -1,9 +1,27 @@
 """
 
-Explicação: em alguns casos, utilizar a recursão como solução pode não ser o recomendado. Chamadas de funções são colocadas em uma pilha, e comparada com outras alternativas, este método pode ser mais lento, consumir memória e até mesmo exceder o limite de profundidade permitido da pilha (Stack Overflow). A recursividade é geralmente um método de repetição custoso computacionalmente.
+Este algoritmo itera sobre cada elemento da lista e seleciona o item de menor valor.
 
-Implementar uma solução iterativa pode simplificar a complexidade código, e também melhorar o desempenho de uma função.
+Após isso,. Para cada i ordenado, o loop contendo o índice j buscará na frente por valores ainda não ordenados.
 
-Uma forma de otimizar uma função recursiva é por memoizar dados já calculados pela função, assim evitando repetição excessiva de cálculos.
+Complexidade algorítmica: O(n^2) -> quadrática.
 
 """
+
+def selection_sort(list):
+    size = len(list)
+
+    for i in range(size - 1):
+        smallest_idx = i
+
+        # Analyzing unsorted portion of list. The sorted portion is behind it.
+        for j in range(i + 1, size):
+            if list[j] < list[smallest_idx]:
+                smallest_idx = j
+
+        list[i], list[smallest_idx] = list[smallest_idx], list[i]
+
+
+example = [4, 1, 6, -23, 3, 100, 10, 25]
+
+selection_sort(example)

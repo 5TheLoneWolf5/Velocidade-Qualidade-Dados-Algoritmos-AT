@@ -1,43 +1,72 @@
 """
 
-O Quickselect é um algoritmo de seleção, e determina qual k-ésimo menor elemento da lista é, enquanto a busca binária tenta encontrar em uma lista o valor informado. A diferença entre o desempenho de uma busca linear e o Quickselect é que o Quickselect tende a ser mais eficiente para seu objetivo de buscar o k-ésimo menor elemento da lista. Ou seja, ambos cumprem objetivos diferentes.
-
-O algoritmo Quickselect realiza sua tarefa de modo eficiente pois a mesma utiliza o método de dividir para conquistar recursivamente com a implementação de um pivô para comparar valores, subdividindo a estrutura na esquerda (menores elementos) e direita (maiores elementos) até retornar toda a lista ordenada. Comparando-o com outras soluções, o Quick Select é eficaz para encontrar o k-ésimo menor elemento de uma array ou lista.
-
-A notação Big O desse algoritmo é O(n) no melhor e médio caso, e O(n^2) no pior caso. A busca linear tem uma complexidade temporal O(log n) no médio e pior caso, e O(1) no melhor caso.
+Utilizar a hashtable desse modo é.
 
 """
 
-def Ex07():
-	def quick_select(array, low, high, k):
-    		if low == high:
-        		return array[low]
+class HashTable:
+    def __init__(self, capacity = 10):
+        self.capacity = capacity
+        self.table = [[] for _ in range(capacity)]
+        self.size = 0
 
-    		pivot_index = partition(array, low, high)
+    def hash(self, key):
+        print(hash(key))
+        print(hash(key) % self.capacity)
+        return hash(key) % self.capacity
 
-    		if k == pivot_index:
-        		return array[k]
-    		elif k < pivot_index:
-        		return quick_select(array, low, pivot_index - 1, k)
-    		else:
-        		return quick_select(array, pivot_index + 1, high, k)
+    def insert(self, key, value):
+        idx = self.hash(key)
 
-	def partition(array, low, high):
-    		pivot = array[high]
-    		i = low - 1
+        for pair in self.table[idx]:
+            if pair[0] == key:
+                pair[1] = value
+                return
 
-    		for j in range(low, high):
-        		if array[j] <= pivot:
-            			i += 1
-            			array[i], array[j] = array[j], array[i]
+        self.table[idx].append([key, value])
+        self.size += 1
 
-    		array[i + 1], array[high] = array[high], array[i + 1]
+    def search(self, key):
+        idx = self.hash(key)
 
-    		return i + 1
+        for pair in self.table[idx]:
+            if pair[0] == key:
+                return pair[1]
 
-	array = [4324, 123, 9, 12, 5, 4, 6, 2, 1, 9, 93, 233, 132]
-	k = 3
-	result = quick_select(array, 0, len(array) - 1, k - 1)
-	print(result)
+        return None
 
-Ex07()
+    def buscar_duplicata(self, value):
+            if self.search(value) != None:
+                    print("Valor duplicado!")
+        
+    def remove(self, key):
+        idx = self.hash(key)
+
+        for i, pair in enumerate(self.table[idx]):
+            if pair[0] == key:
+                del self.table[idx][i]
+                self.size -= 1
+                return True
+
+        return False
+    
+    def __str__(self):
+        result = []
+
+        for listTable in self.table:
+            for pair in listTable:
+                result.append(f"{pair[0]}: {pair[1]}")
+        return "{ " + ", ".join(result) + " }"
+
+def buscar_duplicata(list):
+    length = len(list)
+    for i in range(length):
+        for j in range(i + 1, length):
+            if list[i] == list[j]:
+                print(f"Número duplicado encontrado! Valor: {list[i]} | Index inicial: {i} | Index do valor duplicado: {j}")
+                break
+
+
+
+hash_table = HashTable()
+hash_table.buscar_duplicata()

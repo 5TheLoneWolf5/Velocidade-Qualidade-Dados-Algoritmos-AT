@@ -1,7 +1,7 @@
-def linear_search_contacts(list, value):
-	for i in range(len(list)):
-		if list[i]["nome"] == value:
-			return list[i]
+def linear_search_contacts(_list, value):
+	for i in range(len(_list)):
+		if _list[i]["nome"] == value:
+			return _list[i]
 
 	return False
 

@@ -1,10 +1,10 @@
 """
 
-Esta solução não recursiva do knapsack problem é mais eficiente 
+Esta solução com programação dinâmica do problema da mochila é mais eficiente pois a recomputação dos mesmos subproblemas dentro do algoritmo são evitadas.
 
 """
 
-def knapSack(W, wt, val):
+ def knapSack(W, wt, val):
         n = len(wt)
         dp = [[0 for _ in range(W + 1)] for _ in range(n + 1)]
         

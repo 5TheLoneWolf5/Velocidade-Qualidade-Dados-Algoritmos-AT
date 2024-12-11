@@ -1,6 +1,9 @@
 """
 
-Utilizar a hashtable desse modo é.
+O método buscar_duplicata utiliza da função search para buscar pela possível chave duplicada na hashtable.
+Com apenas uma iteração dentro do método de busca, a complexidade temporal desse algoritmo é de O(n).
+
+Utilizar este algoritmo para buscar por duplicatas dentro da hashtable é eficiente e performático.
 
 """
 
@@ -11,8 +14,6 @@ class HashTable:
         self.size = 0
 
     def hash(self, key):
-        print(hash(key))
-        print(hash(key) % self.capacity)
         return hash(key) % self.capacity
 
     def insert(self, key, value):
@@ -35,9 +36,11 @@ class HashTable:
 
         return None
 
-    def buscar_duplicata(self, value):
-            if self.search(value) != None:
-                    print("Valor duplicado!")
+    def buscar_duplicata(self, key):
+            if self.search(key) != None:
+                    print(f"Chave duplicada encontrada! {key}")
+            else:
+                    print(f"Não existem chaves duplicadas de {key}.")
         
     def remove(self, key):
         idx = self.hash(key)
@@ -69,4 +72,20 @@ def buscar_duplicata(list):
 
 
 hash_table = HashTable()
-hash_table.buscar_duplicata()
+
+hash_table.insert("1", 1)
+hash_table.insert("2", 2)
+hash_table.insert("3", 3)
+
+print("--- Verificar Valores Duplicados na Hashtable ---")
+hash_table.buscar_duplicata("3")
+
+
+"""
+
+Resultado:
+
+--- Verificar Valores Duplicados na Hashtable ---
+Chave duplicada encontrada! 3
+
+"""

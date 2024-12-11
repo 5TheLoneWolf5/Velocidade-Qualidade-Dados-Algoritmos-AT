@@ -1,9 +1,17 @@
-def Ex12(arr, start, sum):
-	if start == len(arr) - 1:
-		return sum
-	sum += arr[start + 1]
-	return Ex12(arr, start + 1, sum)
+""" 
 
-example = [94, 6, 50, 140]
-print(Ex12(example, 0, example[0])) 
-# Parameters: Array, IDX to start, Initial value/sum for the first iteration.
+A recursão resolve o problema de explorar diretórios aninhados pois a natureza estrutural (similiar a de uma árvore) torna isso mais lógico, simples e direto, podendo chamar a si mesma em menores subproblemas até chegar no final de cada ramificação da estrutura.
+
+"""
+
+import os
+
+def listar_arquivos_dir(path='.'):
+	for entry in os.listdir(path):
+		complete_path = os.path.join(path, entry)
+		if os.path.isdir(complete_path):
+			listar_arquivos_dir(complete_path)
+		else:
+			print(complete_path)
+
+listar_arquivos_dir()

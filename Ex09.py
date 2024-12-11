@@ -1,31 +1,68 @@
+class HashTablePerfis:
+    def __init__(self, capacity = 10):
+        self.capacity = capacity
+        self.table = [[] for _ in range(capacity)]
+        self.size = 0
+
+    def hash(self, key):
+        return hash(key) % self.capacity
+
+    def insert(self, key, value):
+        idx = self.hash(key)
+
+        for pair in self.table[idx]:
+            if pair[0] == key:
+                pair[1] = value
+                return
+
+        self.table[idx].append([key, value])
+        self.size += 1
+
+    def search(self, key):
+        idx = self.hash(key)
+
+        for pair in self.table[idx]:
+            if pair[0] == key:
+                return pair[1]
+
+        return None
+        
+    def remove(self, key):
+        idx = self.hash(key)
+
+        for i, pair in enumerate(self.table[idx]):
+            if pair[0] == key:
+                del self.table[idx][i]
+                self.size -= 1
+                return True
+
+        return False
+    
+    def __str__(self):
+        result = []
+
+        for listTable in self.table:
+            for pair in listTable:
+                result.append(f"{pair[0]}: {pair[1]}")
+        return "{ " + ", ".join(result) + " }"
+
+usuarios = HashTablePerfis()
+
+print("--- Buscando Informações de Usuários Rapidamente ---")
+
+usuarios.insert("adam", { "id": 1, "nomeUsuario": "adam", "email": "adam@gmail.com" })
+usuarios.insert("sophie", { "id": 2, "nomeUsuario": "sophie", "email": "sophie@gmail.com" })
+usuarios.insert("john", { "id": 3, "nomeUsuario": "john", "email": "john@gmail.com" })
+
+print(usuarios.search("sophie"))
+print(usuarios.search("john"))
+
 """
 
-Este algoritmo percorre uma árvore e retorna os valores em ordem (Raíz -> Esquerda -> Direita) (Preorder Traversal).
+Resultado:
 
-A recursão facilita na navegação em estruturas hierárquicas como árvores, já que nessas estruturas, há uma natural similaridade entre algortimos de ramificação recursivos e estruturas de dados como árvores e grafos. A aplicação destes algoritmos é portanto, direta ao ponto.
+--- Buscando Informações de Usuários Rapidamente ---
+john
+sophie
 
 """
-
-class Node:
-	def __init__(self, data):
-		self.data = data
-		self.left = None
-		self.right = None
-
-def Ex09(root):
-	if root is None:
-		return
-	print(root.data)
-	Ex09(root.left)
-	Ex09(root.right)
-
-root = Node(1)
-root.right = Node(2)
-root.right.left = Node(3)
-root.right.right = Node(4)
-root.left = Node(5)
-root.left.left = Node(6)
-root.left.right = Node(7)
-root.left.left.left = Node(8)
-
-Ex09(root)

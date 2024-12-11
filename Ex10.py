@@ -1,31 +1,62 @@
+class PilhaNavegacao:
+    def __init__(self, size_limit):
+        self.size_limit = size_limit
+        self.stack = [None] * size_limit
+        self.top = -1
+
+    def is_empty(self):
+        return self.top == -1
+
+    def is_full(self):
+        return self.size_limit <= self.size()
+
+    def size(self):
+        if self.is_empty():
+            return -1
+        
+        return self.top + 1
+
+    def peek(self):
+        if self.is_empty():
+            print("Stack is empty.")
+        
+        print(self.stack[self.top])
+    
+    def avancar(self, item):
+        if self.is_full():
+            return "Stack is full."
+        
+        self.top += 1
+        self.stack[self.top] = item
+        
+        return self.stack[self.top]
+
+    def voltar(self):
+        if self.is_empty():
+            return "Stack is already empty."
+        self.stack[self.top] = None
+        self.top -= 1
+        
+        return self.stack[self.top]
+
+navegacao = PilhaNavegacao(10)
+
+print("--- Histórico de Navegação ---\n")
+
+navegacao.avancar("https://www.python.org/")
+navegacao.peek()
+navegacao.avancar("https://www.python.org/downloads/")
+navegacao.avancar("https://www.python.org/blogs/")
+navegacao.voltar()
+navegacao.peek()
+
 """
 
-Este algoritmo percorre uma árvore e retorna os valores em ordem (Raíz -> Esquerda -> Direita) (Preorder Traversal).
+Resultado:
 
-A recursão facilita na navegação em estruturas hierárquicas como árvores, já que nessas estruturas, há uma natural similaridade entre algortimos de ramificação recursivos e estruturas de dados como árvores e grafos. A aplicação destes algoritmos é portanto, direta ao ponto.
+--- Histórico de Navegação ---
+
+https://www.python.org/
+https://www.python.org/downloads/
 
 """
-
-class Node:
-	def __init__(self, data):
-		self.data = data
-		self.left = None
-		self.right = None
-
-def Ex09(root):
-	if root is None:
-		return
-	print(root.data)
-	Ex09(root.left)
-	Ex09(root.right)
-
-root = Node(1)
-root.right = Node(2)
-root.right.left = Node(3)
-root.right.right = Node(4)
-root.left = Node(5)
-root.left.left = Node(6)
-root.left.right = Node(7)
-root.left.left.left = Node(8)
-
-Ex09(root)
